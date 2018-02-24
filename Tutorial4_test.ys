@@ -1,0 +1,24 @@
+
+.pos 0x2000
+start: xorq   %rax, %rax
+       irmovq $0x343, %rsi
+       mrmovq data1(%rax), %rbx
+       pushq %rbx
+       mrmovq data2(%rax), %rcx
+       addq   %rcx, %rbx
+       jle next
+       halt
+next:  xorq  %rdx, %rdx
+       jne next2
+       pushq %rsi
+       call  next3
+next2: halt
+next3: pushq %rsi
+       xorq  %rdi, %rdi
+       popq %rbx
+       addq  %rcx, %rcx
+       andq  %rbx, %rcx
+       ret
+.pos 0x2200
+data1: .quad  17
+data2: .quad -20
