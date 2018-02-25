@@ -1,0 +1,23 @@
+                            | 
+0x2000:                      | .pos 0x2000
+0x2000:6300                  | start: xorq   %rax, %rax
+0x2002:30f64303000000000000  |        irmovq $0x343, %rsi
+0x200c:50300022000000000000  |        mrmovq data1(%rax), %rbx
+0x2016:50100822000000000000  |        mrmovq data2(%rax), %rcx
+0x2020:6013                  |        addq   %rcx, %rbx
+0x2022:712c20000000000000    |        jle next
+0x202b:00                    |        halt
+0x202c:6322                  | next:  xorq  %rdx, %rdx
+0x202e:744220000000000000    |        jne next2
+0x2037:a06f                  |        pushq %rsi
+0x2039:804320000000000000    |        call  next3
+0x2042:00                    | next2: halt
+0x2043:a06f                  | next3: pushq %rsi
+0x2045:6377                  |        xorq  %rdi, %rdi
+0x2047:b03f                  |        popq %rbx
+0x2049:6011                  |        addq  %rcx, %rcx
+0x204b:6231                  |        andq  %rbx, %rcx
+0x204d:90                    |        ret
+0x2200:                      | .pos 0x2200
+0x2200:1100000000000000      | data1: .quad  17
+0x2208:ecffffffffffffff      | data2: .quad -20
